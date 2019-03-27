@@ -7,23 +7,16 @@
  * Time Complexity = O(n*n)
  * 
  * Below are the steps:
- * 1. We take the array as input and move the least valued element to the beginning of the the array.
- * 2. We then iterate through the array excluding the first element, and repeat the above step till we remain with last element.
- * 
- * Code Explanation:
- * We loop through the array of numbers. To Set the initial base index as the first element. 
- * We create another loop, with base index + 1 value and compare the rest values in the rest of the array with value in 
- * base index.
- * If we find any value less that our base element, then we swap elements. This makes sure the least possible value
- * is always in the base index.
- * In the  first for loop we increment the base index.
+ * 1. We take the array as input and pivot on first element.
+ * 2. We compare the next element with the pivot element and if its value is less than previous element, we perform a swap.
+ * 3. Repeat it for the rest of the array.
  * 
  * 
  * @author Ganesh Chaitanya Kale
  *
  */
 public class InsertionSort {
-	
+
 	/**
 	 * Main method
 	 * @param args
@@ -46,18 +39,15 @@ public class InsertionSort {
 	 * @return
 	 */
 	private static int[] insertionSort(int[] numbers) {
-		for (int i = 0; i < numbers.length-1; i++) {
-			int minElementIndex = i;
-			for (int j = i +1; j < numbers.length; j++) {
-				if(numbers[j] < numbers[i]) {
-					minElementIndex = j;
-				}
+		for (int i = 1; i < numbers.length; i++) {
+			int value = numbers[i];
+			int index  = i;
+			while (index > 0 && value < numbers[index - 1]) {
+				numbers[index] = numbers[index-1];
+				index--;
 			}
-			int tempNumber = numbers[minElementIndex];
-			numbers[minElementIndex] = numbers[i];
-			numbers[i] = tempNumber;
+			numbers[index] = value;
 		}
 		return numbers;
 	}
-
 }
